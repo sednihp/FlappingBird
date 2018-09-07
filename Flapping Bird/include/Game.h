@@ -5,16 +5,22 @@
 #include "Timer.h"
 #include "Pipe.h"
 
+enum class GameState {
+	PLAY,
+	PAUSED
+};
+
 class Game : public State
 {
 	private:
 		TTF_Font* smallFont;
-		GameTex scoreTex;
+		GameTex scoreTex, pausedTex;
 		std::unique_ptr<Bird> bird;	
 		std::unique_ptr<Timer> pipeTimer;
 		std::vector<std::unique_ptr<Pipe>> topPipes;
 		std::vector<std::unique_ptr<Pipe>> bottomPipes;
 		int lastPipeY;
+		GameState state = GameState::PLAY;
 
 		void keyPressed(SDL_Event& e, Engine* engine);
 
